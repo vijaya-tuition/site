@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bright Future Tuition Centre</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    /* CSS Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      color: #1e293b;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a {
+      color: #7c3aed;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover,
+    a:focus {
+      color: #5b21b6;
+      outline: none;
+    }
+
+    /* Layout system */
+    header, footer {
+      background: #7c3aed;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Header styling */
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      user-select: none;
+      background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: default;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    /* Mobile menu toggle */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Mobile nav overlay */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #7c3aed;
+      padding: 2rem;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 1100;
+      overflow-y: auto;
+    }
+    .nav-mobile.show {
+      display: flex;
+    }
+    .nav-mobile a {
+      font-size: 1.5rem;
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Hero section */
+    .hero {
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      color: white;
+      text-align: center;
+      padding: 120px 1.5rem 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+    .hero h1 {
+      font-size: 3.75rem;
+      font-weight: 800;
+      max-width: 600px;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: 1.5px;
+    }
+    .hero p {
+      font-weight: 400;
+      font-size: 1.3rem;
+      max-width: 480px;
+      color: #d8d4ff;
+      margin-bottom: 2rem;
+    }
+    .hero .btn-primary {
+      background: white;
+      color: #7c3aed;
+      font-weight: 700;
+      border-radius: 12px;
+      padding: 1.2rem 2.75rem;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 35px rgba(124, 58, 237, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .hero .btn-primary:focus {
+      outline: 3px solid #d0bcff;
+      outline-offset: 2px;
+    }
+    .hero .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(124, 58, 237, 0.5);
+    }
+
+    /* Main content container */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    /* Section headings */
+    h2.section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #5b21b6;
+      margin-bottom: 2rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Courses section */
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .course-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 1rem 2.5rem;
+      box-shadow: 0 4px 18px rgba(109, 95, 255, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .course-card:hover,
+    .course-card:focus-within {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 50px rgba(124, 58, 237, 0.3);
+      outline: none;
+    }
+    .course-icon {
+      font-family: 'Material Icons';
+      font-size: 48px;
+      color: #8b5cf6;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+    .course-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #4c1d95;
+    }
+    .course-description {
+      font-size: 1rem;
+      color: #57534e;
+      flex-grow: 1;
+      margin-bottom: 1.2rem;
+    }
+    .course-schedule {
+      font-weight: 600;
+      color: #7c3aed;
+    }
+
+    /* Contact section */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      max-width: 540px;
+      margin: 0 auto 3rem auto;
+      user-select: none;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.1rem;
+      color: #374151;
+    }
+    .contact-item .material-icons {
+      font-size: 24px;
+      color: #7c3aed;
+      user-select: none;
+    }
+
+    /* Contact form */
+    form.contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    label {
+      font-weight: 600;
+      color: #5b21b6;
+      user-select: none;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      resize: vertical;
+      min-height: 40px;
+      max-height: 150px;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      border: 1.5px solid #c4b5fd;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #7c3aed;
+      box-shadow: 0 0 8px #a78bfa60;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    button.submit-btn {
+      background: #7c3aed;
+      color: white;
+      font-weight: 700;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      max-width: 180px;
+      align-self: flex-start;
+    }
+    button.submit-btn:hover,
+    button.submit-btn:focus {
+      background: #5926b5;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 1.5rem;
+      color: #e0d7ff;
+      font-size: 0.9rem;
+      text-align: center;
+      user-select: none;
+    }
+
+.slider {
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .slide {
+      min-width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    button.prev, button.next {
+      position: absolute;
+      top: 50%;
+transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      font-size: 18px;
+      z-index: 1000;
+    }
+    button.prev {
+      left: 10px;
+    }
+    button.next {
+      right: 10px;
+    }
+
+.contact-section iframe {
+  border: none;
+  width: 100%;
+  max-width: 800px;
+  height: 1000px;
+  margin: auto;
+  display: block;
+}
+
+    /* Responsive adjustments */
+
+    @media (max-width: 767px) {
+      .hero h1 {
+        font-size: 2.7rem;
+      }
+      nav {
+        display: none;
+      }
+      .mobile-toggle {
+        display: block;
+      }
+      main {
+        padding: 2rem 1rem 4rem;
+      }
+      .courses-grid {
+        gap: 1.7rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .nav-mobile {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container" role="banner">
+      <div class="logo" aria-label="Bright Future Tuition Centre Logo">Vijaya Tuitions</div>
+      <nav role="navigation" aria-label="Primary site navigation">
+        <a href="#home" tabindex="0">Home</a>
+        <a href="#courses" tabindex="0">Courses</a>
+        <a href="#about" tabindex="0">About</a>
+        <a href="#contact" tabindex="0">Contact</a>
+      </nav>
+      <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">&#9776;</button>
+    </div>
+    <nav id="mobile-menu" class="nav-mobile" role="navigation" aria-label="Mobile site navigation">
+      <a href="#home" tabindex="0">Home</a>
+      <a href="#courses" tabindex="0">Courses</a>
+      <a href="#about" tabindex="0">About</a>
+      <a href="#contact" tabindex="0">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home" tabindex="-1">
+    <h1>Welcome to Vijaya Tuition Centre</h1>
+    <p>Your pathway to success starts here. Expert tutoring for all classes and subjects.</p>
+    <button class="btn-primary" onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'})">Enroll Now</button>
+  </section>
+
+  <main>
+    <section id="courses" aria-labelledby="courses-title">
+      <h2 class="section-title" id="courses-title">Courses We Offer</h2>
+      <div class="courses-grid">
+        <article class="course-card" tabindex="0" aria-label="Mathematics course">
+          <span class="course-icon material-icons" aria-hidden="true">calculate</span>
+          <h3 class="course-title">Tuition for 1-10<sup>th<sup>  <br>for all State board,ICSE and CBSE</h3>
+          <p class="course-description">Comprehensive tutoring from basics to advanced.<br>Concept based learning with simple and effective learning methods.</p>
+          <p class="course-schedule" aria-label="Course schedule">Monday-Saturday</p>
+        </article>
+        <article class="course-card" tabindex="0" aria-label="Science course">
+          <span class="course-icon material-icons" aria-hidden="true">science</span>
+          <h3 class="course-title">Navodaya Coaching</h3>
+          <p class="course-description">Get the Best preparation to crack JNV entrance<br> Regular tests and performance analysis</p>
+          <p class="course-schedule" aria-label="Course schedule">Monday-Saturday</p>
+        </article>
+        <article class="course-card" tabindex="0" aria-label="English course">
+          <span class="course-icon material-icons" aria-hidden="true">menu_book</span>
+          <h3 class="course-title">Intermediate</h3>
+          <p class="course-description">Special care taken in teaching Maths and Chemistry</p>
+          <p class="course-schedule" aria-label="Course schedule">Monday-Saturday</p>
+        </article>
+        <article class="course-card" tabindex="0" aria-label="Computer Science course">
+          <span class="course-icon material-icons" aria-hidden="true">computer</span>
+          <h3 class="course-title">Other Competitive exams</h3>
+          <p class="course-description">Coaching for your Specific exams will also be given </p>
+          <p class="course-schedule" aria-label="Course schedule">Monday-Saturday</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <h2 class="section-title" id="about-title">About Us</h2>
+      <p style="max-width: 650px; margin: 0 auto 2rem; font-size: 1.1rem; color: #4b4b4b; user-select:none;">
+        Vijaya Tuition Centre is committed to providing personalized and effective education services from the past 20 years. We help students build confidence and achieve excellence across a variety of subjects.
+      </p>
+    </section>
+<section id="slider" aria-labelledby="slider-title">
+      <h2 class="section-title" id="slider-title">Our Gallery</h2>
+      <div class="slider">
+        <div class="slides">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipO8SnZzcEIr71mZUSPJi9CV79PtvzQYSRHlFMYK=s1360-w1360-h1020-rw" alt="Description of image 1" class="slide" />
+          <img src="https://ik.imagekit.io/a6foktcqp/WhatsApp%20Image%202025-06-15%20at%2014.56.47_133d9348.jpg?updatedAt=1749980505996" alt="Description of image 2" class="slide" />
+          <img src="https://ik.imagekit.io/a6foktcqp/WhatsApp%20Image%202025-06-15%20at%2017.25.09_29cb7a58.jpg?updatedAt=1749988611164" alt="Description of image 3" class="slide" />
+<img src="https://ik.imagekit.io/a6foktcqp/WhatsApp%20Image%202025-06-15%20at%2017.23.16_c9c36869.jpg?updatedAt=1749988611263" alt="Description of image 4" class="slide" />
+
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+      </div>
+    </section>
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Contact Us</h2>
+      <div class="contact-info" role="contentinfo">
+        <div class="contact-item"><span class="material-icons" aria-hidden="true">location_on</span>Opp St.Anns School,Tadepalligudem</div>
+<a href="https://g.co/kgs/cphPNvr">Map</a>
+        <div class="contact-item"><span class="material-icons" aria-hidden="true">phone</span><a href="tel:+1234567890" aria-label="Call us at 123 456 7890">9550936680</a></div>
+        <div class="contact-item"><span class="material-icons" aria-hidden="true">email</span><a href="mailto:info@brightfuturetuition.com" aria-label="Send email to info@brightfuturetuition.com">samyukthadeepika4@gmail.com</a></div>
+      </div>
+    </section>
+      <form id="contact-form" class="contact-form" aria-label="Contact form" onsubmit="handleSubmit(event)">
+<section id="contact" class="contact-section">
+       <div class="container">
+    <iframe 
+      src="https://docs.google.com/forms/d/e/1FAIpQLSffgdW7j-oZ3mBRRIr8Wc0SX6CjxpO7KQ8FAXXbj9wJA5ux1A/viewform?embedded=true" 
+      width="100%" 
+      height="500" 
+      frameborder="0" 
+      marginheight="0" 
+      marginwidth="0">
+      Loading…
+    </iframe>
+  </div>      <p id="form-status" role="alert" aria-live="polite" style="margin-top:1rem; text-align:center;"></p>
+    </section>
+</form>
+  </main>
+
+  <footer>
+    &copy; 2025 Vijaya Tuition Centre. All rights reserved.
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.querySelector('.nav-mobile');
+
+    mobileToggle.addEventListener('click', () => {
+      const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('show');
+    });
+
+    // Close mobile nav on link click (for better UX)
+    mobileMenu.querySelectorAll('a').forEach(link =>
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('show');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+
+  let currentSlide = 0;
+    function showSlide(index) {
+      const slides = document.querySelectorAll('.slide');
+      if (index >= slides.length) {
+        currentSlide = 0;
+      } else if (index < 0) {
+        currentSlide = slides.length - 1;
+      } else {
+        currentSlide = index;
+      }
+      const offset = -currentSlide * 100;
+      document.querySelector('.slides').style.transform = `translateX(${offset}%)`;
+    }
+    function changeSlide(direction) {
+      showSlide(currentSlide + direction);
+    }
+    // Automatically change slides every 5 seconds
+    setInterval(() => {
+      changeSlide(1);
+    }, 5000);
+
+
+    // Simple contact form submission handler - typically would send to backend or email API
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const status = document.getElementById('form-status');
+      
+      // Basic validation already done by 'required' attribute
+      // Simulate sending form data - replace with real endpoint or service
+      status.textContent = 'Sending your message...';
+      status.style.color = '#7c3aed';
+
+      setTimeout(() => {
+        status.textContent = 'Thank you for contacting us! We will get back to you soon.';
+        status.style.color = '#15803d'; // success green
+        form.reset();
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
